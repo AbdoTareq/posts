@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
 final logger = Logger();
-const pageLimit = 4;
+const int pageLimit = 4;
+const String kFavorites = 'favorites';
 
 const kBottomRounded = BoxDecoration(
   color: kPrimaryColor,

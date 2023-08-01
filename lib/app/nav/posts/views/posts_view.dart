@@ -38,7 +38,12 @@ class PostsView extends GetView<PostsController> {
                           screen: PostDetailsView(state[index])),
                     ).expand(),
                     IconButton(
-                        onPressed: () {}, icon: Icon(Icons.favorite_outline))
+                        onPressed: () async =>
+                            await controller.addToFavorite(index),
+                        icon: Obx(() => Icon(
+                            controller.isFavoriteList[index].value
+                                ? Icons.favorite
+                                : Icons.favorite_outline)))
                   ],
                 ),
               ).p4();
@@ -46,6 +51,7 @@ class PostsView extends GetView<PostsController> {
           ).hFull(context),
         ),
         onLoading: ShimmerList(),
+        onEmpty: no_data.tr.text.bold.xl.makeCentered(),
         onError: (error) => ListView(children: [
           (Get.height * .4).heightBox,
           error.toString().text.bold.xl.red500.makeCentered().px8()
