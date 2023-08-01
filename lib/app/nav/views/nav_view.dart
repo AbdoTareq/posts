@@ -8,24 +8,16 @@ class NavView extends GetView<NavController> {
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
       PersistentBottomNavBarItem(
-        icon: Image.asset('assets/images/meeting_active.png'),
-        inactiveIcon: Image.asset('assets/images/meeting_ic.png'),
+        icon: Icon(Icons.download),
+        inactiveIcon: Icon(Icons.download_outlined),
       ),
       PersistentBottomNavBarItem(
-        icon: Image.asset('assets/images/notification_active.png'),
-        inactiveIcon: Image.asset('assets/images/notification.png'),
+        icon: Icon(Icons.home),
+        inactiveIcon: Icon(Icons.home_outlined),
       ),
       PersistentBottomNavBarItem(
-        icon: Image.asset('assets/images/home_active.png'),
-        inactiveIcon: Image.asset('assets/images/home_ina.png'),
-      ),
-      PersistentBottomNavBarItem(
-        icon: Image.asset('assets/images/group_active.png'),
-        inactiveIcon: Image.asset('assets/images/group.png'),
-      ),
-      PersistentBottomNavBarItem(
-        icon: Image.asset('assets/images/profile_active.png'),
-        inactiveIcon: Image.asset('assets/images/profile.png'),
+        icon: Icon(Icons.favorite),
+        inactiveIcon: Icon(Icons.favorite_outline),
       ),
     ];
   }
