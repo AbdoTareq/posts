@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
 final logger = Logger();
-const int pageLimit = 4;
+const int pageLimit = 10;
 const String kFavorites = 'favorites';
 
 final lightTheme = ThemeData(
