@@ -36,8 +36,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       .map((e) => ListTile(
                           title: e.title.text.bold.xl.make(),
                           onTap: () {
+                            searchController.closeView('');
                             pushNewScreen(context, screen: PostDetailsView(e));
-                            searchController.closeView(e.title);
                           })),
             )
     ]);
