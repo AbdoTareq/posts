@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_new_template/app/nav/views/nav_view.dart';
 
 import '../../../export.dart';
 
-late String _homePath;
 late Function _customFunction;
 late String _imagePath;
 late String _title;
@@ -18,13 +18,11 @@ class AnimatedSplash extends StatefulWidget {
       {Key? key,
       required String imagePath,
       required String title,
-      required String home,
       Function? customFunction,
       required int duration,
       required AnimatedSplashType type,
       Map<dynamic, Widget>? outputAndHome})
       : super(key: key) {
-    _homePath = home;
     _duration = duration;
     _imagePath = imagePath;
     _title = title;
@@ -35,7 +33,8 @@ class AnimatedSplash extends StatefulWidget {
   _AnimatedSplashState createState() => _AnimatedSplashState();
 }
 
-class _AnimatedSplashState extends State<AnimatedSplash> with SingleTickerProviderStateMixin {
+class _AnimatedSplashState extends State<AnimatedSplash>
+    with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation;
 
@@ -43,9 +42,10 @@ class _AnimatedSplashState extends State<AnimatedSplash> with SingleTickerProvid
   void initState() {
     super.initState();
     if (_duration < 1000) _duration = 2000;
-    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 800));
-    _animation = Tween(begin: 0.0, end: 1.0)
-        .animate(CurvedAnimation(parent: _animationController, curve: Curves.ease));
+    _animationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 800));
+    _animation = Tween(begin: 0.0, end: 1.0).animate(
+        CurvedAnimation(parent: _animationController, curve: Curves.ease));
     _animationController.forward();
   }
 
@@ -56,7 +56,8 @@ class _AnimatedSplashState extends State<AnimatedSplash> with SingleTickerProvid
   }
 
   navigator(home) {
-    Navigator.of(context).pushReplacement(CupertinoPageRoute(builder: (BuildContext context) => home));
+    Navigator.of(context).pushReplacement(
+        CupertinoPageRoute(builder: (BuildContext context) => home));
   }
 
   @override
@@ -66,12 +67,12 @@ class _AnimatedSplashState extends State<AnimatedSplash> with SingleTickerProvid
             var res = _customFunction();
             //print("$res+${_outputAndHome[res]}");
             Future.delayed(Duration(milliseconds: _duration)).then((value) {
-              Navigator.of(context).pushReplacement(
-                  CupertinoPageRoute(builder: (BuildContext context) => _outputAndHome[res]!));
+              Navigator.of(context).pushReplacement(CupertinoPageRoute(
+                  builder: (BuildContext context) => _outputAndHome[res]!));
             });
           })
         : Future.delayed(Duration(milliseconds: _duration)).then((value) {
-            Get.offNamed(_homePath);
+            Get.off(NavView());
           });
 
     return Scaffold(

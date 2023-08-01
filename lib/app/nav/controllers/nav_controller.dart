@@ -5,12 +5,12 @@ import 'package:flutter_new_template/app/nav/posts/views/posts_view.dart';
 import '../../../export.dart';
 
 class NavController extends GetxController {
-  final RxInt _selectedIndex = 2.obs;
+  final RxInt _selectedIndex = 1.obs;
   get selectedIndex => _selectedIndex.value;
   set selectedIndex(value) => _selectedIndex.value = value;
 
   PersistentTabController pageController =
-      PersistentTabController(initialIndex: 2);
+      PersistentTabController(initialIndex: 1);
 
   // if u want to navigate to any page use pageController
   final List<Widget> widgetOptions = <Widget>[

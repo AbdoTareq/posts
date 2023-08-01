@@ -13,6 +13,8 @@ import 'utils/langs/my_translation.dart';
 import 'package:requests_inspector/requests_inspector.dart';
 
 Future<void> main() async {
+  await GetStorage.init();
+
   SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(statusBarColor: kPrimaryColor // status bar color
           ));
@@ -27,21 +29,19 @@ class MyApp extends StatelessWidget {
   final bool isDark = GetStorage().read('dark') ?? false;
   @override
   Widget build(BuildContext context) {
-    logger.i(GetStorage().read('token'));
     return ScreenUtilInit(
         designSize: Size(375, 867),
         minTextAdapt: true,
         rebuildFactor: RebuildFactors.all,
         builder: (BuildContext context, Widget? child) => GetMaterialApp(
               debugShowCheckedModeBanner: false,
-              title: 'Flutter Demo',
+              title: 'Posts',
               translations: MyTranslation(),
               theme: isDark ? darkTheme : lightTheme,
               locale: Locale('ar', 'EG'),
               initialBinding: AppBinding(),
               home: AnimatedSplash(
                 imagePath: 'assets/images/logo.png',
-                home: NavView.navName,
                 duration: 1400,
                 type: AnimatedSplashType.StaticDuration,
                 title: '',
