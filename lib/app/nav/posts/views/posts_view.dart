@@ -24,7 +24,7 @@ class PostsView extends GetView<PostsController> {
                   .where((element) =>
                       element.title.contains(searchController.text))
                   .map((e) => ListTile(
-                      title: Text(e.title),
+                      title: e.title.text.bold.xl.make(),
                       onTap: () {
                         searchController.closeView(e.title);
                       })),
