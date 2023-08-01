@@ -14,12 +14,12 @@ class PostsController extends GetxController with StateMixin<List<Post>> {
       change([], status: RxStatus.loading());
       await getPosts();
     }, onError: (e) => change([], status: RxStatus.error()));
-    getMore();
+    getMoreListener();
     super.onReady();
   }
 
   getPosts() async {
-    final res = await repo.getAll(pageNum: pageNum, limit: pageLimit);
+    final res = await repo.getAll(pageNum: pageNum);
     var temp = <Post>[];
     res.fold((_) {}, (r) {
       r.data.forEach((v) {
@@ -29,7 +29,7 @@ class PostsController extends GetxController with StateMixin<List<Post>> {
     });
   }
 
-  void getMore() {
+  void getMoreListener() {
     scrollController.addListener(() async {
       if (scrollController.position.maxScrollExtent ==
           scrollController.position.pixels) {

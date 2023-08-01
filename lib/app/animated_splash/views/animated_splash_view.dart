@@ -55,11 +55,6 @@ class _AnimatedSplashState extends State<AnimatedSplash>
     _animationController.reset();
   }
 
-  navigator(home) {
-    Navigator.of(context).pushReplacement(
-        CupertinoPageRoute(builder: (BuildContext context) => home));
-  }
-
   @override
   Widget build(BuildContext context) {
     _runfor == AnimatedSplashType.BackgroundProcess
@@ -72,7 +67,7 @@ class _AnimatedSplashState extends State<AnimatedSplash>
             });
           })
         : Future.delayed(Duration(milliseconds: _duration)).then((value) {
-            Get.off(NavView());
+            Get.off(() => NavView());
           });
 
     return Scaffold(

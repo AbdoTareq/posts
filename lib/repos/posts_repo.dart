@@ -4,7 +4,7 @@ import '../export.dart' hide ar;
 
 abstract class PostsRepository {
   Future<Either<Failure, ServerResponse>> getAll(
-      {int? pageNum, int? limit, int? timeout, bool? refreshFromServer});
+      {int? pageNum, int? timeout, bool? refreshFromServer});
 }
 
 class PostsRepositoryImp with BaseRequests implements PostsRepository {
@@ -18,12 +18,7 @@ class PostsRepositoryImp with BaseRequests implements PostsRepository {
   }
 
   Future<Either<Failure, ServerResponse>> getAll(
-          {int? pageNum,
-          int? limit,
-          int? timeout,
-          bool? refreshFromServer}) async =>
-      baseGet(
-          '$postsEndpoint/?_start=${pageNum ?? 0}&_limit=${limit ?? pageLimit}',
-          timeout: timeout,
-          refreshFromServer: refreshFromServer ?? false);
+          {int? pageNum, int? timeout, bool? refreshFromServer}) async =>
+      baseGet('$postsEndpoint/?_start=${pageNum ?? 0}&_limit=$pageLimit',
+          timeout: timeout, refreshFromServer: refreshFromServer ?? false);
 }
