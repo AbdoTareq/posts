@@ -1,7 +1,6 @@
 // widgets
 export 'view/widgets/app_drawer.dart';
 export 'view/widgets/shimmer_list.dart';
-export 'view/widgets/category_placeholder.dart';
 // constants
 export 'constants.dart';
 // utils
