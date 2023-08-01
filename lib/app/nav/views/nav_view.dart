@@ -26,7 +26,7 @@ class NavView extends GetView<NavController> {
         controller: controller.pageController,
         screens: controller.widgetOptions,
         items: _navBarsItems(),
-        backgroundColor: Colors.white, // Default is Colors.white.
+        backgroundColor: Colors.grey.shade200, // Default is Colors.white.
         hideNavigationBarWhenKeyboardShows:
             true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
         popAllScreensOnTapOfSelectedTab: true,
