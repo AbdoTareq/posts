@@ -1,4 +1,4 @@
-package com.simplute.flutter_new_template
+package com.amar.posts
 
 import io.flutter.embedding.android.FlutterActivity
 
