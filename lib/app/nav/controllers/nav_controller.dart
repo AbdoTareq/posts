@@ -14,8 +14,8 @@ class NavController extends GetxController {
 
   // if u want to navigate to any page use pageController
   final List<Widget> widgetOptions = <Widget>[
-    PostsView(),
     DownloadView(),
+    PostsView(),
     FavoritesView(),
   ];
 

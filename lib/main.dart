@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
               title: 'Posts',
               translations: MyTranslation(),
               theme: isDark ? darkTheme : lightTheme,
-              locale: Locale('ar', 'EG'),
+              locale: language ? Locale('en', 'US') : Locale('ar', 'EG'),
               initialBinding: AppBinding(),
               home: AnimatedSplash(
                 imagePath: 'assets/images/logo.png',

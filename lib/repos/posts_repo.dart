@@ -1,7 +1,9 @@
+import 'package:flutter_new_template/network/endpoints.dart';
+
 import '../export.dart' hide ar;
 
 abstract class PostsRepository {
-  Future<Either<Failure, ServerResponse>> get(
+  Future<Either<Failure, ServerResponse>> getAll(
       {int? pageNum, int? limit, int? timeout, bool? refreshFromServer});
 }
 
@@ -15,11 +17,13 @@ class PostsRepositoryImp with BaseRequests implements PostsRepository {
     return _instance;
   }
 
-  Future<Either<Failure, ServerResponse>> get(
+  Future<Either<Failure, ServerResponse>> getAll(
           {int? pageNum,
           int? limit,
           int? timeout,
           bool? refreshFromServer}) async =>
-      baseGet('/?_start=${pageNum ?? 0}&_limit=${limit ?? 10}',
-          timeout: timeout, refreshFromServer: refreshFromServer ?? false);
+      baseGet(
+          '$postsEndpoint/?_start=${pageNum ?? 0}&_limit=${limit ?? pageLimit}',
+          timeout: timeout,
+          refreshFromServer: refreshFromServer ?? false);
 }

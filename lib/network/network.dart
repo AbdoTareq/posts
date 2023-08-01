@@ -4,7 +4,7 @@ import 'package:requests_inspector/requests_inspector.dart';
 
 import '../export.dart' hide MultipartFile;
 
-final _baseUrl = 'https://jsonplaceholder.typicode.com/posts';
+final _baseUrl = 'https://jsonplaceholder.typicode.com/';
 
 class Network {
   final String endPoint;

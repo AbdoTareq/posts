@@ -1,20 +1,43 @@
-import 'package:get/get.dart';
+import 'package:flutter_new_template/models/post.dart';
+import 'package:flutter_new_template/repos/posts_repo.dart';
 
-class PostsController extends GetxController {
-  //TODO: Implement PostsController
+import '../../../../../export.dart';
 
-  final count = 0.obs;
+class PostsController extends GetxController with StateMixin<List<Post>> {
+  final PostsRepository repo = PostsRepositoryImp();
+  ScrollController scrollController = ScrollController();
+  int pageNum = 0;
+
   @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
+  Future<void> onReady() async {
+    await handleRequestWithoutLoading(() async {
+      change([], status: RxStatus.loading());
+      await getPosts();
+    }, onError: (e) => change([], status: RxStatus.error()));
+    getMore();
     super.onReady();
   }
 
-  @override
-  void onClose() {}
-  void increment() => count.value++;
+  getPosts() async {
+    final res = await repo.getAll(pageNum: pageNum, limit: pageLimit);
+    var temp = <Post>[];
+    res.fold((_) {}, (r) {
+      r.data.forEach((v) {
+        temp.add(new Post.fromJson(v));
+      });
+      change(temp, status: RxStatus.success());
+    });
+  }
+
+  void getMore() {
+    scrollController.addListener(() async {
+      if (scrollController.position.maxScrollExtent ==
+          scrollController.position.pixels) {
+        pageNum += pageLimit;
+        await handleRequest(() async {
+          await getPosts();
+        });
+      }
+    });
+  }
 }

@@ -1,11 +1,3 @@
-import 'dart:convert';
-
-List<Post> postsFromJson(String str) =>
-    List<Post>.from(json.decode(str).map((x) => Post.fromJson(x)));
-
-String postsToJson(List<Post> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
-
 class Post {
   int userId;
   int id;

@@ -26,7 +26,7 @@ class BaseRequests {
               box.write(cashName, res.data);
           }
         }
-        return Right(ServerResponse.fromJson(res.data));
+        return Right(ServerResponse.fromJson({"data": res.data}));
       }
     } catch (e) {
       return Left(Failure(message: e.toString()).handleNetworkError(e));

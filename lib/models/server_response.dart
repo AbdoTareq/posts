@@ -1,23 +1,24 @@
 class ServerResponse {
   dynamic errors;
-  dynamic data;
+  List<dynamic> data;
 
   ServerResponse({
     this.errors,
-    this.data,
+    required this.data,
   });
 
-  ServerResponse.fromJson(Map<String, dynamic> json) {
-    errors = json['errors'] ?? json['error'];
-    data = json['data'] ?? json;
+  factory ServerResponse.fromJson(Map<String, dynamic> json) {
+    return ServerResponse(
+      errors: json['errors'] as dynamic,
+      data: List<dynamic>.from(
+          (json['data'] ?? const <dynamic>[]) as List<dynamic>),
+    );
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['errors'] = this.errors;
-    if (this.data != null) {
-      data['data'] = this.data!;
-    }
+    data['data'] = this.data;
     return data;
   }
 }

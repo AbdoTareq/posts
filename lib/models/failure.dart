@@ -17,6 +17,6 @@ class Failure implements Exception {
     else if (e is FormatException)
       throw Failure(message: 'bad_response');
     else
-      throw Failure(message: '${e.message}');
+      throw Failure(message: '${e}');
   }
 }

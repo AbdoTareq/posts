@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
 final logger = Logger();
+const pageLimit = 4;
 
 const kBottomRounded = BoxDecoration(
   color: kPrimaryColor,
@@ -15,23 +16,23 @@ final lightTheme = ThemeData(
   primaryColor: kPrimaryColor,
   brightness: Brightness.light,
   appBarTheme: AppBarTheme().copyWith(color: kPrimaryColor),
-  backgroundColor: const Color(0xFFE5E5E5),
   dividerColor: Colors.white54,
   fontFamily: 'Cairo',
   colorScheme: ColorScheme.fromSwatch(primarySwatch: kPrimaryColor)
-      .copyWith(secondary: kPrimaryColor),
+      .copyWith(secondary: kPrimaryColor)
+      .copyWith(background: const Color(0xFFE5E5E5)),
 );
 
 final darkTheme = ThemeData(
   primaryColor: kPrimaryColor,
   brightness: Brightness.dark,
   appBarTheme: AppBarTheme().copyWith(color: kPrimaryColor),
-  backgroundColor: const Color(0xFF212121),
   dividerColor: Colors.black12,
   fontFamily: 'Cairo',
   colorScheme: ColorScheme.fromSwatch(
           primarySwatch: kPrimaryColor, brightness: Brightness.dark)
-      .copyWith(secondary: Colors.white),
+      .copyWith(secondary: Colors.white)
+      .copyWith(background: const Color(0xFF212121)),
 );
 
 const Map<int, Color> color = {
