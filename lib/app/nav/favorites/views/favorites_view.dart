@@ -16,7 +16,7 @@ class FavoritesView extends GetView<FavoritesController> {
               Theme.of(context).textTheme.headlineSmall!.backgroundColor,
           drawer: AppDrawer(),
           appBar: CustomAppBar(
-            title: 'Favorites',
+            title: favorites,
             searchList: controller.state,
             searchController: searchController,
           ),
