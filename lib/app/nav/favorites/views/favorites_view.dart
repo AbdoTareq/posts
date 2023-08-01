@@ -38,7 +38,7 @@ class FavoritesView extends GetView<FavoritesController> {
                     ).expand(),
                     IconButton(
                       onPressed: () async =>
-                          await controller.removeFavorite(index),
+                          await controller.removeFavorite(state[index]),
                       icon: Icon(Icons.favorite),
                     )
                   ],

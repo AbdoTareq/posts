@@ -16,7 +16,7 @@ class PostsView extends GetView<PostsController> {
               Theme.of(context).textTheme.headlineSmall!.backgroundColor,
           drawer: AppDrawer(),
           appBar: CustomAppBar(
-            title: 'Posts',
+            title: posts,
             searchList: controller.state,
             searchController: searchController,
           ),
@@ -38,8 +38,9 @@ class PostsView extends GetView<PostsController> {
                           screen: PostDetailsView(state[index])),
                     ).expand(),
                     IconButton(
-                        onPressed: () async =>
-                            await controller.addToFavorite(index),
+                        onPressed: () async => await controller
+                            .favoriteController
+                            .addToFavorite(state[index]),
                         icon: Obx(() => Icon(
                             controller.isFavoriteList[index].value
                                 ? Icons.favorite

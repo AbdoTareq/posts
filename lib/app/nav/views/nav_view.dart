@@ -7,12 +7,12 @@ class NavView extends GetView<NavController> {
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.home),
-        inactiveIcon: Icon(Icons.home_outlined),
+        icon: Icon(Icons.home, color: kPrimaryColor),
+        inactiveIcon: Icon(Icons.home_outlined, color: kPrimaryColor),
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.favorite),
-        inactiveIcon: Icon(Icons.favorite_outline),
+        icon: Icon(Icons.favorite, color: kPrimaryColor),
+        inactiveIcon: Icon(Icons.favorite_outline, color: kPrimaryColor),
       ),
     ];
   }

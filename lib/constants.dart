@@ -5,14 +5,6 @@ final logger = Logger();
 const int pageLimit = 4;
 const String kFavorites = 'favorites';
 
-const kBottomRounded = BoxDecoration(
-  color: kPrimaryColor,
-  borderRadius: BorderRadius.only(
-    bottomLeft: Radius.circular(33.0),
-    bottomRight: Radius.circular(33.0),
-  ),
-);
-
 final lightTheme = ThemeData(
   primaryColor: kPrimaryColor,
   brightness: Brightness.light,
@@ -50,12 +42,7 @@ const Map<int, Color> color = {
 };
 
 // styles
-const MaterialColor kPrimaryColor = MaterialColor(0xff2395DE, color);
-const MaterialColor kButtonColor = MaterialColor(0xff1A466D, color);
+const MaterialColor kPrimaryColor = MaterialColor(0xFF4CAF50, color);
 const MaterialColor kSecondaryColor = MaterialColor(0xfffacc2f, color);
 
 const MaterialColor kbackgroundColor = MaterialColor(0xff092A47, color);
-const TextStyle kTStyle = TextStyle(
-  fontSize: 30,
-  color: Colors.white,
-);

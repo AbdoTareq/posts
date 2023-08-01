@@ -1,36 +1,40 @@
-import 'package:flutter_new_template/app/nav/posts/controllers/posts_controller.dart';
 import 'package:flutter_new_template/models/post.dart';
-
 import '../../../../../export.dart';
 
 class FavoritesController extends GetxController with StateMixin<List<Post>> {
   GetStorage box = GetStorage();
-  final PostsController postsController = Get.put(PostsController());
 
   @override
   Future<void> onReady() async {
     await handleRequestWithoutLoading(() async {
       change([], status: RxStatus.loading());
-      _getFavorites(box.read(kFavorites));
-      box.listenKey(kFavorites, (value) {
-        _getFavorites(value);
-      });
+      getFavorites();
     }, onError: (e) => change([], status: RxStatus.error(e.message)));
     super.onReady();
   }
 
-  void _getFavorites(value) {
-    final List<Post> temp = postsFromJson(value);
-    change(temp, status: RxStatus.success());
+  List<Post> getFavorites() {
+    if (box.hasData(kFavorites)) {
+      final List<Post> temp = postsFromJson(box.read(kFavorites));
+      change(temp,
+          status: temp.isEmpty ? RxStatus.empty() : RxStatus.success());
+    } else
+      change([], status: RxStatus.empty());
+    return state!;
   }
 
-  removeFavorite(int index) async {
-    List<Post> favorites = postsFromJson(box.read(kFavorites));
-    var temp = favorites[index];
-    favorites.removeAt(index);
-    await box.write(kFavorites, postsToJson(favorites));
-    int index2 = postsController.state!
-        .indexWhere((element) => element.title == temp.title);
-    postsController.isFavoriteList.removeAt(index2);
+  addToFavorite(Post post) async {
+    final temp = {...state!, post};
+    if (temp.length > state!.length) {
+      change(temp.toList(), status: RxStatus.success());
+      await box.write(kFavorites, postsToJson(temp.toList()));
+    }
+  }
+
+  removeFavorite(Post post) async {
+    final temp =
+        state!.filter((element) => element.title != post.title).toList();
+    change(temp, status: RxStatus.success());
+    await box.write(kFavorites, postsToJson(temp));
   }
 }
