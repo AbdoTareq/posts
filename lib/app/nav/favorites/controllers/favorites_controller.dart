@@ -1,5 +1,6 @@
 import 'package:flutter_new_template/app/nav/posts/controllers/posts_controller.dart';
 import 'package:flutter_new_template/models/post.dart';
+
 import '../../../../../export.dart';
 
 class FavoritesController extends GetxController with StateMixin<List<Post>> {
@@ -34,7 +35,7 @@ class FavoritesController extends GetxController with StateMixin<List<Post>> {
   removeFavorite(Post post) async {
     final temp =
         state!.filter((element) => element.title != post.title).toList();
-    change(temp, status: RxStatus.success());
+    change(temp, status: temp.isEmpty ? RxStatus.empty() : RxStatus.success());
     await box.write(kFavorites, postsToJson(temp));
     PostsController postsController = Get.put(PostsController());
     postsController.applyFavoritesOnPosts();
