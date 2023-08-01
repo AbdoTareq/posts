@@ -13,7 +13,7 @@ class PostsController extends GetxController with StateMixin<List<Post>> {
     await handleRequestWithoutLoading(() async {
       change([], status: RxStatus.loading());
       await getPosts();
-    }, onError: (e) => change([], status: RxStatus.error()));
+    }, onError: (e) => change([], status: RxStatus.error(e.message)));
     getMoreListener();
     super.onReady();
   }

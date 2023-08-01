@@ -23,23 +23,29 @@ class PostsView extends GetView<PostsController> {
           itemCount: state!.length,
           itemBuilder: (BuildContext context, int index) {
             return Card(
-              child: ListTile(
-                title: state[index].title.text.bold.xl.make(),
-                subtitle: '${state[index].body.substring(0, 100)} ...'
-                    .text
-                    .bold
-                    .xl
-                    .make(),
-                onTap: () => pushNewScreen(context,
-                    screen: PostDetailsView(state[index])),
+              child: Row(
+                children: [
+                  ListTile(
+                    title: state[index].title.text.bold.xl.make(),
+                    subtitle: '${state[index].body.substring(0, 100)} ...'
+                        .text
+                        .bold
+                        .xl
+                        .make(),
+                    onTap: () => pushNewScreen(context,
+                        screen: PostDetailsView(state[index])),
+                  ).expand(),
+                  IconButton(
+                      onPressed: () {}, icon: Icon(Icons.favorite_outline))
+                ],
               ),
             ).p4();
           },
         ).hFull(context),
       ),
       onLoading: ShimmerList(),
-      onEmpty: Container(),
-      onError: (error) => error.toString().text.bold.xl.red500.makeCentered(),
+      onError: (error) =>
+          error.toString().text.bold.xl.red500.makeCentered().px8(),
     );
   }
 }

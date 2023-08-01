@@ -16,16 +16,6 @@ class BaseRequests {
       } else {
         Network network = Network(endPoint: endPoint, timeout: timeout);
         var res = await network.get();
-        if (cashName != null) {
-          if (res.data != null) {
-            if (res.data.runtimeType == List) {
-              if ((res.data as List).isNotEmpty) {
-                box.write(cashName, res.data);
-              }
-            } else
-              box.write(cashName, res.data);
-          }
-        }
         return Right(ServerResponse.fromJson({"data": res.data}));
       }
     } catch (e) {
