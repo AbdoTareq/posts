@@ -24,8 +24,8 @@ class PostsView extends GetView<PostsController> {
                         .bold
                         .xl
                         .make(),
-                    onTap: () =>
-                        pushNewScreen(context, screen: PostDetailsView()),
+                    onTap: () => pushNewScreen(context,
+                        screen: PostDetailsView(state[index])),
                   ),
                 ).p4();
               },
