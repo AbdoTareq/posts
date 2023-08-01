@@ -8,7 +8,8 @@ class PostsView extends GetView<PostsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade200,
+      backgroundColor:
+          Theme.of(context).textTheme.headlineSmall!.backgroundColor,
       drawer: AppDrawer(),
       appBar: AppBar(title: Text('Posts'), actions: [
         SearchAnchor(
@@ -26,6 +27,7 @@ class PostsView extends GetView<PostsController> {
                   .map((e) => ListTile(
                       title: e.title.text.bold.xl.make(),
                       onTap: () {
+                        pushNewScreen(context, screen: PostDetailsView(e));
                         searchController.closeView(e.title);
                       })),
         )
@@ -49,7 +51,7 @@ class PostsView extends GetView<PostsController> {
                   ),
                 ).p4();
               },
-            ),
+            ).hFull(context),
             onLoading: ShimmerList(),
             onEmpty: Container(),
             onError: (error) =>

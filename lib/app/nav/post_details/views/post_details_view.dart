@@ -11,7 +11,8 @@ class PostDetailsView extends GetView<PostDetailsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Post Details')),
-      backgroundColor: Colors.grey.shade200,
+      backgroundColor:
+          Theme.of(context).textTheme.headlineSmall!.backgroundColor,
       body: ListView(
         children: [
           Card(

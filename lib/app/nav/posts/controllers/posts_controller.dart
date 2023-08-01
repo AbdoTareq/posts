@@ -20,11 +20,12 @@ class PostsController extends GetxController with StateMixin<List<Post>> {
 
   getPosts() async {
     final res = await repo.getAll(pageNum: pageNum);
-    var temp = <Post>[];
+    var temp = state!;
     res.fold((_) {}, (r) {
       r.data.forEach((v) {
         temp.add(new Post.fromJson(v));
       });
+
       change(temp, status: RxStatus.success());
     });
   }
