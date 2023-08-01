@@ -1,7 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
-
 class Failure implements Exception {
   // Use something like "int code;" if you want to translate error messages
   final String message;

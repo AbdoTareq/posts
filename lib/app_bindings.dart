@@ -1,4 +1,4 @@
-import 'package:flutter_new_template/app/auth/login/controllers/login_controller.dart';
+import 'package:flutter_new_template/app/home/controllers/home_controller.dart';
 import 'package:flutter_new_template/app_settings_controller.dart';
 
 import 'package:get/get.dart';
@@ -8,6 +8,6 @@ class AppBinding implements Bindings {
   @override
   void dependencies() {
     Get.put(AppSettingsController(), permanent: true);
-    Get.lazyPut<LoginController>(() => LoginController(), fenix: true);
+    Get.lazyPut<HomeController>(() => HomeController(), fenix: true);
   }
 }

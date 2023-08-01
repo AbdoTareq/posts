@@ -1,34 +1,36 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:dio/dio.dart' as http;
-import 'package:flutter/foundation.dart';
 import 'package:requests_inspector/requests_inspector.dart';
 
 import '../export.dart' hide MultipartFile;
 
-final _baseUrl = 'https://backend.eradonline.murabba.dev/api';
+final _baseUrl = 'https://jsonplaceholder.typicode.com/posts';
 
 class Network {
   final String endPoint;
   final dynamic body;
+  final int? timeout;
 
   // good practice to make one connection to server available to the app as we don't want to create a new connection every time we make server call
 
-  Network({required this.endPoint, this.body});
+  Network({required this.endPoint, this.body, this.timeout});
   GetStorage box = GetStorage();
-  final dio =
-      Dio(BaseOptions(connectTimeout: 100 * 1000, receiveTimeout: 100 * 1000, validateStatus: (_) => true))
-        ..interceptors.add(RequestsInspectorInterceptor());
+  final dio = Dio(BaseOptions(validateStatus: (_) => true))
+    ..interceptors.add(RequestsInspectorInterceptor());
 
   Map<String, String?> headers = {
     'Accept': 'application/json',
     'locale': Get.locale?.languageCode ?? 'en',
     "Keep-Alive": "timeout=12",
-    'Authorization': GetStorage().hasData("token") ? 'Bearer ${GetStorage().read("token")}' : null,
+    'Authorization': GetStorage().hasData("token")
+        ? 'Bearer ${GetStorage().read("token")}'
+        : null,
   };
 
-  Future<http.Response> req(Future<http.Response> Function() requestType) async {
+  Future<http.Response> req(
+      Future<http.Response> Function() requestType) async {
+    dio.options.connectTimeout = timeout ?? 100 * 1000;
+    dio.options.receiveTimeout = timeout ?? 100 * 1000;
     try {
       final response = await requestType();
 
@@ -52,66 +54,9 @@ class Network {
     }
   }
 
-  String _getParamsFromBody() {
-    String params = '';
-    for (var i = 0; i < body?.keys.length; i++) {
-      params += '${List.from(body?.keys)[i]}=${List.from(body?.values)[i]}';
-      if (i != body!.keys.length - 1) {
-        params += '&';
-      }
-    }
-    return params;
-  }
-
-  Future<http.Response> post({bool isParamData = false, String? baseUrl, bool isBevatel = false}) async {
+  Future<http.Response> get() {
     return req(() {
-      return dio.post((baseUrl ?? _baseUrl) + endPoint + (isParamData ? _getParamsFromBody() : ''),
-          data: isParamData ? {} : body, options: Options(headers: headers));
+      return dio.get(_baseUrl + endPoint, options: Options(headers: headers));
     });
-  }
-
-  Future<http.Response> put() {
-    return req(() {
-      return dio.put(_baseUrl + endPoint, data: body, options: Options(headers: headers));
-    });
-  }
-
-  Future<http.Response> delete() {
-    return req(() {
-      return dio.delete(_baseUrl + endPoint, data: body, options: Options(headers: headers));
-    });
-  }
-
-  Future<http.Response> get({String? baseUrl, bool isBevatel = false}) {
-    return req(() {
-      return dio.get((baseUrl ?? _baseUrl) + endPoint + (isBevatel ? _getParamsFromBody() : ''),
-          options: Options(headers: headers));
-    });
-  }
-
-  Future<http.Response> uploadImage(File file, Map<String, dynamic> user,
-      {MultipartFile? multipartFile}) async {
-    http.FormData formData;
-    if (kIsWeb) {
-      formData = http.FormData.fromMap({
-        "upload": multipartFile,
-      });
-    } else {
-      String fileName = file.path.split('/').last;
-      formData = http.FormData.fromMap(
-          {"file": await http.MultipartFile.fromFile(file.path, filename: fileName), ...user});
-    }
-    return req(() {
-      return dio.post(_baseUrl + endPoint, data: formData, options: Options(headers: headers));
-    });
-  }
-
-  downloadFileFromUrl(String url, String savePath) async {
-    try {
-      await dio.download(url, savePath, onReceiveProgress: (received, total) {});
-      print("File is saved to download folder.");
-    } on DioError catch (e) {
-      showWarningDialog(text: e.message);
-    }
   }
 }

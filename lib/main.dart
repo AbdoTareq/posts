@@ -13,9 +13,11 @@ import 'package:requests_inspector/requests_inspector.dart';
 
 Future<void> main() async {
   await GetStorage.init();
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: kPrimaryColor // status bar color
-      ));
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_) {
+  SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(statusBarColor: kPrimaryColor // status bar color
+          ));
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
     runApp(RequestsInspector(child: MyApp(), enabled: kDebugMode));
   });
 }

@@ -21,7 +21,7 @@ export 'constants.dart';
 export 'utils/langs/ar.dart';
 export 'utils/utils.dart';
 // most used packages
-export 'package:velocity_x/velocity_x.dart' hide IntExtension, BoolExtension, ThemeExtension;
+export 'package:velocity_x/velocity_x.dart';
 export 'package:dropdown_button2/custom_dropdown_button2.dart';
 export 'package:get/utils.dart';
 export 'package:get/get_state_manager/get_state_manager.dart';
@@ -31,7 +31,6 @@ export 'package:get/get.dart' hide StringExtension;
 export 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 export 'package:get_storage/get_storage.dart';
 export 'package:flutter/material.dart';
-export 'package:get_storage/get_storage.dart';
 export 'package:dartz/dartz.dart' hide State, Order;
 // models
 export 'models/failure.dart';
