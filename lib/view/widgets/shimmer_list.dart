@@ -1,5 +1,3 @@
-import 'package:shimmer/shimmer.dart';
-
 import '../../export.dart';
 
 class ShimmerList extends StatelessWidget {
@@ -8,7 +6,7 @@ class ShimmerList extends StatelessWidget {
     this.count = 6,
     this.child,
     this.listChild,
-    this.childHeight = 80,
+    this.childHeight = 120,
   }) : super(key: key);
 
   final int? count;
@@ -18,17 +16,14 @@ class ShimmerList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Shimmer.fromColors(
-      baseColor: Colors.grey[300]!,
-      highlightColor: Colors.grey[100]!,
-      child: child ??
-          ListView.builder(
-            itemCount: count,
-            itemBuilder: (context, index) {
-              return listChild ?? ShimmerChild(height: childHeight);
-            },
-          ),
-    );
+    return child ??
+        ListView.builder(
+          itemCount: count,
+          itemBuilder: (context, index) {
+            return VxShimmer(
+                child: listChild ?? ShimmerChild(height: childHeight));
+          },
+        );
   }
 }
 

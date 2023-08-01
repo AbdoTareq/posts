@@ -44,5 +44,3 @@ const Map<int, Color> color = {
 // styles
 const MaterialColor kPrimaryColor = MaterialColor(0xFF4CAF50, color);
 const MaterialColor kSecondaryColor = MaterialColor(0xfffacc2f, color);
-
-const MaterialColor kbackgroundColor = MaterialColor(0xff092A47, color);

@@ -4,8 +4,6 @@ import 'package:flutter_new_template/app/nav/views/nav_view.dart';
 import '../../../export.dart';
 
 late Function _customFunction;
-late String _imagePath;
-late String _title;
 late int _duration;
 late AnimatedSplashType _runfor;
 
@@ -16,16 +14,12 @@ Map<dynamic, Widget> _outputAndHome = {};
 class AnimatedSplash extends StatefulWidget {
   AnimatedSplash(
       {Key? key,
-      required String imagePath,
-      required String title,
       Function? customFunction,
       required int duration,
       required AnimatedSplashType type,
       Map<dynamic, Widget>? outputAndHome})
       : super(key: key) {
     _duration = duration;
-    _imagePath = imagePath;
-    _title = title;
     _runfor = type;
   }
 
@@ -71,7 +65,6 @@ class _AnimatedSplashState extends State<AnimatedSplash>
           });
 
     return Scaffold(
-        backgroundColor: kbackgroundColor,
         body: FadeTransition(
             opacity: _animation,
             child: Center(
@@ -79,7 +72,7 @@ class _AnimatedSplashState extends State<AnimatedSplash>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   SizedBox().expand(),
-                  SizedBox(child: Image.asset(_imagePath)),
+                  FlutterLogo(size: 155.h),
                   SizedBox().expand(),
                 ],
               ),

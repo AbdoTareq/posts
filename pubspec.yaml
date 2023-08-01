@@ -36,19 +36,14 @@ dependencies:
   get_storage: ^2.0.3
   persistent_bottom_nav_bar_v2: ^4.2.8
   velocity_x: ^3.0.0
-  shimmer: ^2.0.0
   flutter_screenutil: ^5.8.4
-  cached_network_image: ^3.2.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   logger: ^1.1.0
-  rename_app: 1.1.0
-  change_app_package_name:
   # HTTP Inspector tool for Flutter which helps debugging http requests.
   requests_inspector: null
-  flutter_launcher_icons: ^0.9.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

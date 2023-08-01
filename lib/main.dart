@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_new_template/app/nav/views/nav_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -41,10 +40,8 @@ class MyApp extends StatelessWidget {
               locale: language ? Locale('en', 'US') : Locale('ar', 'EG'),
               initialBinding: AppBinding(),
               home: AnimatedSplash(
-                imagePath: 'assets/images/logo.png',
                 duration: 1400,
                 type: AnimatedSplashType.StaticDuration,
-                title: '',
               ),
             ));
   }

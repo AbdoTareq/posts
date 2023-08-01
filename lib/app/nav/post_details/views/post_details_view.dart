@@ -1,9 +1,7 @@
 import 'package:flutter_new_template/export.dart';
 import 'package:flutter_new_template/models/post.dart';
 
-import '../controllers/post_details_controller.dart';
-
-class PostDetailsView extends GetView<PostDetailsController> {
+class PostDetailsView extends StatelessWidget {
   final Post post;
 
   PostDetailsView(this.post);

@@ -18,11 +18,6 @@ class NavController extends GetxController {
   ];
 
   @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
   void dispose() {
     super.dispose();
     pageController.dispose();
