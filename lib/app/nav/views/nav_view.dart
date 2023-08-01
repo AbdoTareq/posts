@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
-
 import '../../../export.dart';
 import '../controllers/nav_controller.dart';
 
 class NavView extends GetView<NavController> {
   const NavView({Key? key}) : super(key: key);
+  static String navName = '/nav';
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
@@ -51,7 +50,8 @@ class NavView extends GetView<NavController> {
           curve: Curves.ease,
           duration: Duration(milliseconds: 200),
         ),
-        navBarStyle: NavBarStyle.style8, // Choose the nav bar style with this property.
+        navBarStyle:
+            NavBarStyle.style8, // Choose the nav bar style with this property.
       ),
     );
   }

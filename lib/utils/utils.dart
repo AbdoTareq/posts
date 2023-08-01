@@ -9,8 +9,20 @@ showWarningDialog({String title = '', String text = ''}) async {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          title: (title.isNotEmpty ? title.tr : '👍').tr.text.isIntrinsic.bold.xl2.makeCentered(),
-          content: (text.isNotEmpty ? text.tr : 'under_dev'.tr).tr.text.isIntrinsic.bold.xl.make(),
+          title: (title.isNotEmpty ? title.tr : '👍')
+              .tr
+              .text
+              .isIntrinsic
+              .bold
+              .xl2
+              .makeCentered(),
+          content: (text.isNotEmpty ? text.tr : 'under_dev'.tr)
+              .tr
+              .text
+              .isIntrinsic
+              .bold
+              .xl
+              .make(),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
@@ -19,28 +31,6 @@ showWarningDialog({String title = '', String text = ''}) async {
           ],
         );
       });
-}
-
-showOptionsDialog({String title = '', String text = '', required Function() yesFunction}) async {
-  await Get.defaultDialog(
-      title: title.isNotEmpty ? title.tr : 'watch'.tr,
-      middleText: text.isNotEmpty ? text.tr : 'under_dev'.tr,
-      titleStyle: TextStyle(color: Colors.red),
-      actions: [
-        ElevatedButton(
-          onPressed: yesFunction,
-          child: Text(
-            'yes'.tr,
-            style: TextStyle(color: Colors.red),
-          ),
-        ),
-        ElevatedButton(
-          onPressed: () => Get.back(),
-          child: Text(
-            'cancel'.tr,
-          ),
-        ),
-      ]);
 }
 
 showSimpleDialog({String title = '', String text = ''}) async {
@@ -54,8 +44,20 @@ showSimpleDialog({String title = '', String text = ''}) async {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          title: (title.isNotEmpty ? title.tr : '👍').tr.text.isIntrinsic.bold.xl2.makeCentered(),
-          content: (text.isNotEmpty ? text.tr : 'Success'.tr).tr.text.isIntrinsic.bold.xl.make(),
+          title: (title.isNotEmpty ? title.tr : '👍')
+              .tr
+              .text
+              .isIntrinsic
+              .bold
+              .xl2
+              .makeCentered(),
+          content: (text.isNotEmpty ? text.tr : 'Success'.tr)
+              .tr
+              .text
+              .isIntrinsic
+              .bold
+              .xl
+              .make(),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
@@ -67,7 +69,8 @@ showSimpleDialog({String title = '', String text = ''}) async {
 }
 
 showSuccessSnack({String title = '', String text = ''}) {
-  Get.snackbar(title.isNotEmpty ? title.tr : '👍'.tr, text.isNotEmpty ? text.tr : 'under_dev'.tr,
+  Get.snackbar(title.isNotEmpty ? title.tr : '👍'.tr,
+      text.isNotEmpty ? text.tr : 'under_dev'.tr,
       snackPosition: SnackPosition.BOTTOM,
       duration: Duration(seconds: 6),
       backgroundColor: Colors.green,
@@ -77,7 +80,8 @@ showSuccessSnack({String title = '', String text = ''}) {
 }
 
 showFailSnack({String title = '', String text = '', Function()? yesFunction}) {
-  Get.snackbar(title.isNotEmpty ? title.tr : watch.tr, text.isNotEmpty ? text.tr : 'under_dev'.tr,
+  Get.snackbar(title.isNotEmpty ? title.tr : watch.tr,
+      text.isNotEmpty ? text.tr : 'under_dev'.tr,
       snackPosition: SnackPosition.BOTTOM,
       duration: Duration(seconds: 15),
       barBlur: 10,
@@ -95,39 +99,23 @@ Future<Null> handleRequest(Future<Null> Function() asyncFunction,
       asyncFunction: () async {
         await asyncFunction().catchError((e) async {
           logger.e(e);
-          if (e.toString().contains('Unauthenticated')) {
-            showFailSnack(
-                text: login_to_continue,
-                yesFunction: () {
-                  Get.back();
-                  Get.offAllNamed(Routes.LOGIN);
-                });
-          } else
-            //? u can't await the dialog as it will stops the flow & will not dismiss the center loading
-            showWarningDialog(title: message ?? 'error'.tr, text: e.toString());
+          showWarningDialog(title: message ?? 'error'.tr, text: e.toString());
         });
       },
       loadingWidget: Center(child: CircularProgressIndicator()));
 }
 
-Future<dynamic> handleRequestWithoutLoading(Future<dynamic> Function() asyncFunction,
-    {bool showMessage = false, String? message, Function(dynamic e)? onError}) async {
+Future<dynamic> handleRequestWithoutLoading(
+    Future<dynamic> Function() asyncFunction,
+    {bool showMessage = false,
+    String? message,
+    Function(dynamic e)? onError}) async {
   await asyncFunction().catchError((e) async {
     logger.e(e);
     if (onError != null) onError(e);
-    if (e.toString().contains('Unauthenticated')) {
-      showFailSnack(
-          text: login_to_continue,
-          yesFunction: () {
-            Get.back();
-            Get.offAllNamed(Routes.LOGIN);
-          });
-    } else {
-      List<String> messages = e.toString().replaceAll('}', '').split('message:');
-      await showWarningDialog(
-          title: message ?? 'error'.tr, text: messages.length > 1 ? messages[1] : messages[0]);
-    }
+    List<String> messages = e.toString().replaceAll('}', '').split('message:');
+    await showWarningDialog(
+        title: message ?? 'error'.tr,
+        text: messages.length > 1 ? messages[1] : messages[0]);
   });
 }
-
-getColorFromHex(String color) => Color(int.parse(color.toString().replaceAll('#', '0xff')));

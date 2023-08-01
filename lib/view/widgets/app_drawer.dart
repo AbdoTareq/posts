@@ -27,24 +27,6 @@ class AppDrawer extends GetView<AppSettingsController> {
                   controller.box.write('language', controller.lang.value);
                 }),
           ),
-          GetStorage().hasData('token')
-              ? CustomListTile(
-                  onTap: () {
-                    GetStorage().remove('token');
-                    // Get.find<AppSettingsController>().user.value.data = null;
-                    Get.offAllNamed(Routes.NAV);
-                  },
-                  title: logout.tr.text.color(Theme.of(context).primaryColor).bold.xl.make().p8(),
-                  leading: Icon(Icons.exit_to_app, color: kPrimaryColor),
-                ).w48(context)
-              : CustomListTile(
-                  onTap: () {
-                    Navigator.pop(context);
-                    Get.toNamed(Routes.LOGIN);
-                  },
-                  title: login.tr.text.color(Theme.of(context).primaryColor).bold.xl.make().p8(),
-                  leading: Icon(Icons.login, color: kPrimaryColor),
-                ).w48(context),
         ],
       ).centered(),
     );

@@ -1,4 +1,6 @@
-import 'package:flutter_new_template/app/home/views/home_view.dart';
+import 'package:flutter_new_template/app/nav/download/views/download_view.dart';
+import 'package:flutter_new_template/app/nav/favorites/views/favorites_view.dart';
+import 'package:flutter_new_template/app/nav/posts/views/posts_view.dart';
 
 import '../../../export.dart';
 
@@ -7,15 +9,14 @@ class NavController extends GetxController {
   get selectedIndex => _selectedIndex.value;
   set selectedIndex(value) => _selectedIndex.value = value;
 
-  PersistentTabController pageController = PersistentTabController(initialIndex: 2);
+  PersistentTabController pageController =
+      PersistentTabController(initialIndex: 2);
 
   // if u want to navigate to any page use pageController
   final List<Widget> widgetOptions = <Widget>[
-    HomeView(),
-    HomeView(),
-    HomeView(),
-    HomeView(),
-    HomeView(),
+    PostsView(),
+    DownloadView(),
+    FavoritesView(),
   ];
 
   @override

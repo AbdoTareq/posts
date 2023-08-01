@@ -1,4 +1,6 @@
-import 'package:flutter_new_template/app/home/controllers/home_controller.dart';
+import 'package:flutter_new_template/app/nav/download/controllers/download_controller.dart';
+import 'package:flutter_new_template/app/nav/favorites/controllers/favorites_controller.dart';
+import 'package:flutter_new_template/app/nav/posts/controllers/posts_controller.dart';
 import 'package:flutter_new_template/app_settings_controller.dart';
 
 import 'package:get/get.dart';
@@ -8,6 +10,8 @@ class AppBinding implements Bindings {
   @override
   void dependencies() {
     Get.put(AppSettingsController(), permanent: true);
-    Get.lazyPut<HomeController>(() => HomeController(), fenix: true);
+    Get.lazyPut<PostsController>(() => PostsController(), fenix: true);
+    Get.lazyPut<DownloadController>(() => DownloadController(), fenix: true);
+    Get.lazyPut<FavoritesController>(() => FavoritesController(), fenix: true);
   }
 }
