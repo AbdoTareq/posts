@@ -4,12 +4,32 @@ import '../../../../export.dart';
 import '../controllers/posts_controller.dart';
 
 class PostsView extends GetView<PostsController> {
+  final SearchController searchController = SearchController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
       drawer: AppDrawer(),
-      appBar: AppBar(title: Text('Posts')),
+      appBar: AppBar(title: Text('Posts'), actions: [
+        SearchAnchor(
+          searchController: searchController,
+          builder: (context, SearchController searchController) => IconButton(
+              icon: const Icon(Icons.search),
+              onPressed: () {
+                searchController.openView();
+              }),
+          viewHintText: 'Start typing to filter',
+          suggestionsBuilder: (context, SearchController searchController) =>
+              controller.state!
+                  .where((element) =>
+                      element.title.contains(searchController.text))
+                  .map((e) => ListTile(
+                      title: Text(e.title),
+                      onTap: () {
+                        searchController.closeView(e.title);
+                      })),
+        )
+      ]),
       body: controller
           .obx(
             (state) => ListView.builder(
@@ -31,6 +51,7 @@ class PostsView extends GetView<PostsController> {
               },
             ),
             onLoading: ShimmerList(),
+            onEmpty: Container(),
             onError: (error) =>
                 error.toString().text.bold.xl.red500.makeCentered(),
           )
