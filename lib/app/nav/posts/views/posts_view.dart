@@ -38,13 +38,11 @@ class PostsView extends GetView<PostsController> {
                           screen: PostDetailsView(state[index])),
                     ).expand(),
                     IconButton(
-                        onPressed: () async => await controller
-                            .favoriteController
-                            .addToFavorite(state[index]),
-                        icon: Obx(() => Icon(
-                            controller.isFavoriteList[index].value
-                                ? Icons.favorite
-                                : Icons.favorite_outline)))
+                        onPressed: () async =>
+                            await controller.toggleFavorite(state[index]),
+                        icon: Obx(() => Icon(state[index].isFavorite.value
+                            ? Icons.favorite
+                            : Icons.favorite_outline)))
                   ],
                 ),
               ).p4();

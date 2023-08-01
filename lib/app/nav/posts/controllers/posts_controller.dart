@@ -8,7 +8,6 @@ class PostsController extends GetxController with StateMixin<List<Post>> {
   final PostsRepository repo = PostsRepositoryImp();
   ScrollController scrollController = ScrollController();
   int _pageNum = 0;
-  List<RxBool> isFavoriteList = <RxBool>[];
   final FavoritesController favoriteController = Get.put(FavoritesController());
 
   @override
@@ -28,10 +27,32 @@ class PostsController extends GetxController with StateMixin<List<Post>> {
       r.data.forEach((v) {
         Post post = Post.fromJson(v);
         temp.add(post);
-        isFavoriteList.add(false.obs);
       });
       change(temp, status: RxStatus.success());
     });
+    applyFavoritesOnPosts();
+  }
+
+  applyFavoritesOnPosts() {
+    for (var element in state!) {
+      element.isFavorite(false);
+    }
+    final favorites = favoriteController.state;
+    favorites!.forEach((fav) {
+      int index = state!.indexWhere((element) => fav.title == element.title);
+      if (index != -1) {
+        state![index].isFavorite(true);
+        change(state, status: RxStatus.success());
+      }
+    });
+  }
+
+  toggleFavorite(Post post) {
+    !post.isFavorite.value
+        ? favoriteController.addToFavorite(post)
+        : favoriteController.removeFavorite(post);
+    post.isFavorite.toggle();
+    applyFavoritesOnPosts();
   }
 
   void _getMoreListener() {

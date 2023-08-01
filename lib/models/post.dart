@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+
 List<Post> postsFromJson(String str) =>
     List<Post>.from(json.decode(str).map((x) => Post.fromJson(x)));
 
@@ -11,12 +13,14 @@ class Post {
   int id;
   String title;
   String body;
+  RxBool isFavorite;
 
   Post({
     required this.userId,
     required this.id,
     required this.title,
     required this.body,
+    required this.isFavorite,
   });
 
   Post copyWith({
@@ -24,12 +28,14 @@ class Post {
     int? id,
     String? title,
     String? body,
+    RxBool? isFavorite,
   }) {
     return Post(
       userId: userId ?? this.userId,
       id: id ?? this.id,
       title: title ?? this.title,
       body: body ?? this.body,
+      isFavorite: isFavorite ?? this.isFavorite,
     );
   }
 
@@ -48,6 +54,7 @@ class Post {
       id: (map['id'] ?? 0) as int,
       title: (map['title'] ?? '') as String,
       body: (map['body'] ?? '') as String,
+      isFavorite: (map['isFavorite'] ?? false.obs) as RxBool,
     );
   }
 
