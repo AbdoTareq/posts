@@ -1,6 +1,5 @@
 // widgets
 export 'view/widgets/app_drawer.dart';
-export 'view/widgets/custom_list_tile.dart';
 export 'view/widgets/shimmer_list.dart';
 export 'view/widgets/category_placeholder.dart';
 // constants

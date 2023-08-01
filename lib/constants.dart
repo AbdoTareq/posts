@@ -3,21 +3,11 @@ import 'package:logger/logger.dart';
 
 final logger = Logger();
 
-//base image path
-const baseImagePath = 'assets/images/';
-
 const kBottomRounded = BoxDecoration(
   color: kPrimaryColor,
   borderRadius: BorderRadius.only(
     bottomLeft: Radius.circular(33.0),
     bottomRight: Radius.circular(33.0),
-  ),
-);
-
-const kRoundedAll = BoxDecoration(
-  color: Colors.white,
-  borderRadius: BorderRadius.all(
-    Radius.circular(33.0),
   ),
 );
 
@@ -28,7 +18,8 @@ final lightTheme = ThemeData(
   backgroundColor: const Color(0xFFE5E5E5),
   dividerColor: Colors.white54,
   fontFamily: 'Cairo',
-  colorScheme: ColorScheme.fromSwatch(primarySwatch: kPrimaryColor).copyWith(secondary: kPrimaryColor),
+  colorScheme: ColorScheme.fromSwatch(primarySwatch: kPrimaryColor)
+      .copyWith(secondary: kPrimaryColor),
 );
 
 final darkTheme = ThemeData(
@@ -38,7 +29,8 @@ final darkTheme = ThemeData(
   backgroundColor: const Color(0xFF212121),
   dividerColor: Colors.black12,
   fontFamily: 'Cairo',
-  colorScheme: ColorScheme.fromSwatch(primarySwatch: kPrimaryColor, brightness: Brightness.dark)
+  colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: kPrimaryColor, brightness: Brightness.dark)
       .copyWith(secondary: Colors.white),
 );
 

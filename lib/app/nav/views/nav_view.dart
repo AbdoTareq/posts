@@ -3,7 +3,6 @@ import '../controllers/nav_controller.dart';
 
 class NavView extends GetView<NavController> {
   const NavView({Key? key}) : super(key: key);
-  static String navName = '/nav';
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
