@@ -12,6 +12,10 @@ abstract class Routes {
   static const RESET_PASS = _Paths.RESET_PASS;
   static const VERIFY_CODE = _Paths.VERIFY_CODE;
   static const ANIMATED_SPLASH = _Paths.ANIMATED_SPLASH;
+  static const POSTS = _Paths.NAV + _Paths.POSTS;
+  static const DOWNLOAD = _Paths.NAV + _Paths.DOWNLOAD;
+  static const FAVORITES = _Paths.NAV + _Paths.FAVORITES;
+  static const POST_DETAILS = _Paths.NAV + _Paths.POST_DETAILS;
 }
 
 abstract class _Paths {
@@ -27,4 +31,8 @@ abstract class _Paths {
   static const RESET_PASS = '/reset_pass';
   static const VERIFY_CODE = '/verify_code';
   static const ANIMATED_SPLASH = '/animated-splash';
+  static const POSTS = '/posts';
+  static const DOWNLOAD = '/download';
+  static const FAVORITES = '/favorites';
+  static const POST_DETAILS = '/post-details';
 }
