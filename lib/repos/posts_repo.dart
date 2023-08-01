@@ -7,7 +7,7 @@ abstract class PostsRepository {
       {int? pageNum, int? timeout, bool? refreshFromServer});
 }
 
-class PostsRepositoryImp with BaseRequests implements PostsRepository {
+class PostsRepositoryImp implements PostsRepository {
   PostsRepositoryImp._privateConstructor();
 
   static final PostsRepositoryImp _instance =
@@ -18,7 +18,15 @@ class PostsRepositoryImp with BaseRequests implements PostsRepository {
   }
 
   Future<Either<Failure, ServerResponse>> getAll(
-          {int? pageNum, int? timeout, bool? refreshFromServer}) async =>
-      baseGet('$postsEndpoint/?_start=${pageNum ?? 0}&_limit=$pageLimit',
-          timeout: timeout, refreshFromServer: refreshFromServer ?? false);
+      {int? pageNum, int? timeout, bool? refreshFromServer}) async {
+    try {
+      Network network = Network(
+          endPoint: '$postsEndpoint/?_start=${pageNum ?? 0}&_limit=$pageLimit',
+          timeout: timeout);
+      var res = await network.get();
+      return Right(ServerResponse.fromJson({"data": res.data}));
+    } catch (e) {
+      return Left(Failure(message: e.toString()).handleNetworkError(e));
+    }
+  }
 }

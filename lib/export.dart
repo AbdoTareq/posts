@@ -23,6 +23,5 @@ export 'models/failure.dart';
 export 'models/server_response.dart';
 // network
 export 'network/network.dart';
-export 'repos/base_requests.dart';
 // dependency injection
 export 'app_bindings.dart';

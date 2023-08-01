@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter_new_template/models/post.dart';
 import 'package:flutter_new_template/repos/posts_repo.dart';
 
@@ -22,13 +20,25 @@ class PostsController extends GetxController with StateMixin<List<Post>> {
     super.onReady();
   }
 
+  void _getFavorites() {
+    final List<Post> favoriteList = postsFromJson(box.read(kFavorites));
+    state!.forEach((v) {
+      int index =
+          favoriteList.indexWhere((element) => element.title == v.title);
+      isFavoriteList[index] = false.obs;
+    });
+  }
+
   _getPosts() async {
     final res = await repo.getAll(pageNum: _pageNum);
     var temp = state!;
     res.fold((_) {}, (r) {
+      final List<Post> favoriteList = postsFromJson(box.read(kFavorites));
       r.data.forEach((v) {
-        temp.add(new Post.fromJson(v));
-        isFavoriteList.add(false.obs);
+        Post post = Post.fromJson(v);
+        temp.add(post);
+        isFavoriteList.add(
+            (favoriteList.any((element) => element.title == post.title)).obs);
       });
       change(temp, status: RxStatus.success());
     });
@@ -60,7 +70,7 @@ class PostsController extends GetxController with StateMixin<List<Post>> {
     isFavoriteList[index].toggle();
   }
 
-  removeToFavorite(int index) async {
+  removeFavorite(int index) async {
     if (isFavoriteList[index].value) {
       List<Post> favorites = postsFromJson(box.read(kFavorites));
       favorites.remove(state![index]);
