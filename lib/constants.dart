@@ -3,7 +3,7 @@ import 'package:logger/logger.dart';
 
 final logger = Logger();
 const int pageLimit = 10;
-const String kFavorites = 'favorites';
+const String kFavorites = 'favorites2';
 
 final lightTheme = ThemeData(
   primaryColor: kPrimaryColor,
