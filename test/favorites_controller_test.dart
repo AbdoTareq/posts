@@ -1,7 +1,8 @@
 import 'package:flutter_new_template/app/nav/favorites/controllers/favorites_controller.dart';
+import 'package:flutter_new_template/app/nav/posts/controllers/posts_controller.dart';
+import 'package:flutter_new_template/export.dart';
 import 'package:flutter_new_template/models/post.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get.dart';
 
 void main() {
   test('FavoritesController adds a post to favorites correctly', () {
@@ -22,6 +23,8 @@ void main() {
 
   test('FavoritesController removes a post from favorites correctly', () {
     FavoritesController controller = Get.put(FavoritesController());
+    PostsController postsController = Get.put(PostsController());
+    postsController.onReady();
     controller.onReady();
     final post = Post(
         title: 'Post 1',
@@ -33,7 +36,7 @@ void main() {
     controller.addToFavorite(post);
     controller.removeFavorite(post);
 
-    expect(controller.state!.isEmpty, true);
+    expect(controller.state?.isEmpty, true);
   });
 
   test(
