@@ -15,20 +15,15 @@ class PostsController extends GetxController with StateMixin<List<Post>> {
     await handleRequestWithoutLoading(() async {
       change([], status: RxStatus.loading());
       await _getPosts();
-    }, onError: (e) => change([], status: RxStatus.error(e.message)));
+    }, onError: (e) => change([], status: RxStatus.error(e.toString())));
     _getMoreListener();
     super.onReady();
   }
 
   _getPosts() async {
     final res = await repo.getAll(pageNum: _pageNum);
-    var temp = state!;
     res.fold((_) {}, (r) {
-      r.data.forEach((v) {
-        Post post = Post.fromJson(v);
-        temp.add(post);
-      });
-      change(temp, status: RxStatus.success());
+      change([...state!, ...postsFromJson(r.data)], status: RxStatus.success());
     });
     applyFavoritesOnPosts();
   }

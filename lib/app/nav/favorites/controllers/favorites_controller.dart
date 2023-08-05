@@ -11,7 +11,7 @@ class FavoritesController extends GetxController with StateMixin<List<Post>> {
     await handleRequestWithoutLoading(() async {
       change([], status: RxStatus.loading());
       getFavorites();
-    }, onError: (e) => change([], status: RxStatus.error(e.message)));
+    }, onError: (e) => change([], status: RxStatus.error(e.toString())));
     super.onReady();
   }
 
