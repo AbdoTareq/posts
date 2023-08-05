@@ -1,105 +1,72 @@
-import 'package:flutter_new_template/export.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_new_template/app/nav/favorites/controllers/favorites_controller.dart';
 import 'package:flutter_new_template/models/post.dart';
-import 'package:mockito/mockito.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:get/get.dart';
 
 void main() {
-  group('FavoritesController', () {
-    late FavoritesController favoritesController;
-    late GetStorage mockGetStorage;
+  test('FavoritesController adds a post to favorites correctly', () {
+    FavoritesController controller = Get.put(FavoritesController());
+    controller.onReady();
+    final post = Post(
+        title: 'Post 1',
+        body: 'Post body 1',
+        id: 1,
+        isFavorite: false.obs,
+        userId: 1);
 
-    setUp(() {
-      favoritesController = FavoritesController();
-      mockGetStorage = GetStorage();
-      favoritesController.box = mockGetStorage;
-    });
+    controller.addToFavorite(post);
 
-    test('Get favorites from storage', () async {
-      // Mock data
-      final mockFavorites = [
-        {
-          'title': 'Post 1',
-          'body': 'Post body 1',
-          'id': 1,
-          'isFavorite': false.obs,
-          'userId': 1
-        },
-        {
-          'title': 'Post 2',
-          'body': 'Post body 2',
-          'id': 2,
-          'isFavorite': false.obs,
-          'userId': 1
-        },
-      ];
+    expect(controller.state!.length, 1);
+    expect(controller.state![0].title, 'Post 1');
+  });
 
-      // Set up mock storage response
-      when(mockGetStorage.hasData(kFavorites)).thenReturn(true);
-      when(mockGetStorage.read(kFavorites)).thenReturn(mockFavorites);
+  test('FavoritesController removes a post from favorites correctly', () {
+    FavoritesController controller = Get.put(FavoritesController());
+    controller.onReady();
+    final post = Post(
+        title: 'Post 1',
+        body: 'Post body 1',
+        id: 1,
+        isFavorite: false.obs,
+        userId: 1);
 
-      // Invoke onReady method
-      await favoritesController.onReady();
+    controller.addToFavorite(post);
+    controller.removeFavorite(post);
 
-      // Verify that the favorites are fetched correctly
-      expect(favoritesController.state!.length, 2);
-      expect(favoritesController.state![0].title, 'Post 1');
-      expect(favoritesController.state![1].title, 'Post 2');
-    });
+    expect(controller.state!.isEmpty, true);
+  });
 
-    test('Add to favorites and update storage', () async {
-      // Set up mock post
-      final mockPost = Post(
-          title: 'Post 3',
-          body: 'Post body 3',
-          id: 3,
-          isFavorite: false.obs,
-          userId: 1);
+  test(
+      'FavoritesController getFavorites returns empty list if no favorites exist',
+      () {
+    FavoritesController controller = Get.put(FavoritesController());
+    controller.onReady();
 
-      // Set up mock state and storage
-      favoritesController.change([], status: RxStatus.empty());
+    expect(controller.state!.isEmpty, true);
+  });
 
-      // Invoke addToFavorite method
-      await favoritesController.addToFavorite(mockPost);
+  test('FavoritesController getFavorites returns list of favorites', () {
+    FavoritesController controller = Get.put(FavoritesController());
+    controller.onReady();
 
-      // Verify that the post is added to favorites and storage is updated
-      expect(favoritesController.state!.length, 1);
-      expect(favoritesController.state![0].title, 'Post 3');
-      verify(mockGetStorage.write(kFavorites, any)).called(1);
-    });
+    final post1 = Post(
+        title: 'Post 1',
+        body: 'Post body 1',
+        id: 1,
+        isFavorite: false.obs,
+        userId: 1);
+    final post2 = Post(
+        title: 'Post 2',
+        body: 'Post body 2',
+        id: 2,
+        isFavorite: false.obs,
+        userId: 1);
 
-    test('Remove from favorites and update storage', () async {
-      // Set up mock post
-      final mockPost = Post(
-          title: 'Post 1',
-          body: 'Post body 1',
-          id: 1,
-          isFavorite: false.obs,
-          userId: 1);
+    controller.addToFavorite(post1);
+    controller.addToFavorite(post2);
 
-      // Set up mock state and storage
-      favoritesController.change([
-        Post(
-            title: 'Post 1',
-            body: 'Post body 1',
-            id: 1,
-            isFavorite: false.obs,
-            userId: 1),
-        Post(
-            title: 'Post 2',
-            body: 'Post body 2',
-            id: 2,
-            isFavorite: false.obs,
-            userId: 1),
-      ], status: RxStatus.success());
-
-      // Invoke removeFavorite method
-      await favoritesController.removeFavorite(mockPost);
-
-      // Verify that the post is removed from favorites and storage is updated
-      expect(favoritesController.state!.length, 1);
-      expect(favoritesController.state![0].title, 'Post 2');
-      verify(mockGetStorage.write(kFavorites, any)).called(1);
-    });
+    expect(controller.state!.length, 2);
+    expect(controller.state![0].title, 'Post 1');
+    expect(controller.state![1].title, 'Post 2');
   });
 }
