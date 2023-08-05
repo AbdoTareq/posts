@@ -41,6 +41,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  mockito: ^5.4.2
   logger: ^1.1.0
   # HTTP Inspector tool for Flutter which helps debugging http requests.
   requests_inspector: null
