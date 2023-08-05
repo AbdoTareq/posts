@@ -48,7 +48,7 @@ class FavoritesView extends GetView<FavoritesController> {
           ).hFull(context),
         ),
         onLoading: ShimmerList(),
-        onEmpty: no_data.tr.text.bold.xl.makeCentered(),
+        onEmpty: no_data.tr.text.color(kPrimaryColor).bold.xl.makeCentered(),
         onError: (error) => ListView(children: [
           (Get.height * .4).heightBox,
           error.toString().text.bold.xl.red500.makeCentered().px8()
