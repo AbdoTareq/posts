@@ -36,7 +36,7 @@ class FavoritesController extends GetxController with StateMixin<List<Post>> {
     final temp =
         state!.filter((element) => element.title != post.title).toList();
     change(temp, status: temp.isEmpty ? RxStatus.empty() : RxStatus.success());
-    await box.write(kFavorites, postsToJson(temp));
+    await box.write(kFavorites, temp.isEmpty ? [] : postsToJson(temp));
     PostsController postsController = Get.put(PostsController());
     postsController.applyFavoritesOnPosts();
   }
